@@ -1,0 +1,19 @@
+.text-input {
+    width: 100%;
+    display: block;
+    height: 36px;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+    line-height: 1.5;
+    border-radius: 8px;
+    color: #495057;
+    font-size: 0.875rem;
+}
+
+.text-input:focus,
+.text-input:active {
+    border-color: #007bff;
+}

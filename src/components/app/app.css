@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+.page {
+    min-height: 100%;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    color: #505050;
+    background-color: #f8fafb;
+}
+
+.page__search-panel {
+    grid-area: search-panel;
+}
+
+.page__sidebar {
+    grid-area: sidebar;
+}
+
+.page__main {
+    grid-area: main;
+}
+
+.page__container {
+    min-height: 100%;
+    padding: 105px 30px 20px 30px;
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 20fr 80fr;
+    grid-column-gap: 30px;
+    grid-template-areas: 
+    "sidebar search-panel"
+    "sidebar main";
+}
+
+@media screen and (max-width: 1100px) {
+    .page__container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

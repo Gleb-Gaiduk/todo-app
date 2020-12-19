@@ -1,0 +1,25 @@
+.user-profile {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-profile__name {
+    margin-right: 8px;
+    display: inline-block;
+    color: #666666;
+}
+
+.user-profile__avatar {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    margin: 0;
+}
+
+.user-profile__image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
