@@ -1,0 +1,20 @@
+.star-button {
+    transition: color 0.2s;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.star-button.active  .star-button__icon g {
+    fill: #e9882e;
+} 
+
+.star-button:focus .star-button__icon g{
+    fill: #e9882e;
+}
+
+.star-button__icon {
+    width: 16px;
+    height: 16px;
+}

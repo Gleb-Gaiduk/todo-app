@@ -3,6 +3,7 @@ import './app.css';
 
 import AppHeader from '../app-header/app-header';
 import SearchPanel from '../search-panel/search-panel';
+import TodoList from '../todo-list/todo-list';
 
 
 export default class App extends Component {
@@ -20,9 +21,8 @@ export default class App extends Component {
                         
                     </div>
                     <main className="page__main">
-                        
+                        <TodoList />
                     </main>
-                    
                 </div>
             </div>
         );
