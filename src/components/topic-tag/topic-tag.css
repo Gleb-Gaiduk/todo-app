@@ -15,9 +15,13 @@
 }
 
 .topic-tag--bg--blue {
-    background-color: ##33b5e5;
+    background-color: #33b5e5;
 }
 
 .topic-tag--bg--orange {
     background-color: #ff9f43;
+}
+
+.topic-tag--bg--purple {
+    background-color: #AA68CC;
 }

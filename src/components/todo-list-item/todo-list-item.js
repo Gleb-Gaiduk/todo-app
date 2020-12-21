@@ -9,30 +9,38 @@ import DeleteButton from '../delete-button/delete-button';
 export default class TodoListItem extends Component {
     
     render() {
+        const { itemData, onCheckboxToggle, onStarToggle } = this.props;
+        let itemClass = 'list-item';
+        if (itemData.done) itemClass += ' done';
+        if (itemData.important) itemClass += ' stared';
         
         return (
-            <li className="list-item">
+            <span className={ itemClass }>
                <div className="list-item__button-group">
                    <div className="list-item__checkbox">
-                        <Checkbox />
+                        <Checkbox
+                        itemId={ itemData.id }
+                        onCheckboxToggle={ onCheckboxToggle } />
                    </div>
                    <div className="list-item__checkstar">
-                        <CheckStar />
+                        <CheckStar
+                        onStarToggle={ onStarToggle }
+                        stared={ itemData.important }/>
                    </div>
-                  
                </div>
                <p className="list-item__text">
-                   Create Awesome App
+                   { itemData.text }
                </p>
                <div className="list-item__right-block-wrapper">
                    <div className="list-item__topic-tag">
-                       <TopicTag />
+                       <TopicTag
+                       itemTag={ itemData.tag } />
                    </div>
                    <div className="list-item__delete-button">
                        <DeleteButton />
                    </div>
                </div>
-            </li>
+            </span>
         );
     };
 };
