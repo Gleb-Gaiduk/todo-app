@@ -9,7 +9,7 @@ import DeleteButton from '../delete-button/delete-button';
 export default class TodoListItem extends Component {
     
     render() {
-        const { itemData, onCheckboxToggle, onStarToggle } = this.props;
+        const { itemData, onCheckboxToggle, onStarToggle, onItemDelete } = this.props;
         let itemClass = 'list-item';
         if (itemData.done) itemClass += ' done';
         if (itemData.important) itemClass += ' stared';
@@ -25,7 +25,7 @@ export default class TodoListItem extends Component {
                    <div className="list-item__checkstar">
                         <CheckStar
                         onStarToggle={ onStarToggle }
-                        stared={ itemData.important }/>
+                        stared={ itemData.important } />
                    </div>
                </div>
                <p className="list-item__text">
@@ -37,7 +37,8 @@ export default class TodoListItem extends Component {
                        itemTag={ itemData.tag } />
                    </div>
                    <div className="list-item__delete-button">
-                       <DeleteButton />
+                       <DeleteButton
+                        onItemDelete = { onItemDelete }/>
                    </div>
                </div>
             </span>

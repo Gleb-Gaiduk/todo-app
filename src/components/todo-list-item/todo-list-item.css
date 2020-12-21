@@ -12,16 +12,14 @@
     background-color: #ebebeb;
 }
 
+.list-item.stared .list-item__text {
+    color: #ff9f43;
+}
+
 .list-item.done .list-item__text {
     color: #28c76f;
     text-decoration: line-through;
 }
-
-.list-item.stared .list-item__text {
-    text-decoration: underline;
-    text-decoration-color: #ff9f43;
-}
-
 
 .list-item:hover {
     background-color:  rgba(0, 0, 0, 0.03);
