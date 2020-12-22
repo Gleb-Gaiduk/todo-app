@@ -4,7 +4,8 @@ import './app.css';
 import AppHeader from '../app-header/app-header';
 import SearchPanel from '../search-panel/search-panel';
 import TodoList from '../todo-list/todo-list';
-
+import AppSidebar from '../app-sidebar/app-sidebar';
+import ModalWindow from '../modal-window/modal-window';
 
 export default class App extends Component {
     
@@ -70,7 +71,7 @@ export default class App extends Component {
                         <SearchPanel />
                     </div>
                     <div className="page__sidebar">
-                        
+                        <AppSidebar />
                     </div>
                     <main className="page__main">
                         <TodoList
@@ -80,6 +81,7 @@ export default class App extends Component {
                         onItemDelete={ this.onItemDelete }/>
                     </main>
                 </div>
+                <ModalWindow />
             </div>
         );
     };

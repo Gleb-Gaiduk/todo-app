@@ -2,9 +2,9 @@
     height: 100%;
     margin-top: 0;
     margin-bottom: 0;
-    list-style :none;
+    list-style: none;
     padding-left: 0;
-    background-color:#fff;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
     overflow: auto;
