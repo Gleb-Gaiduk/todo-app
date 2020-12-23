@@ -12,8 +12,12 @@ function getTagClassName(tagText) {
             return baseClass += 'topic-tag--bg--purple';
         case 'Social':
             return baseClass += 'topic-tag--bg--orange';
-        default:
+        case 'Sport':
             return baseClass += 'topic-tag--bg--green';
+        case 'Not taged':
+            return baseClass += 'topic-tag--bg--default';
+        default:
+            return baseClass += 'topic-tag--bg--dark-green';
     }
 }
 

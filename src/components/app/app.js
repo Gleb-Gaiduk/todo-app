@@ -8,14 +8,37 @@ import AppSidebar from '../app-sidebar/app-sidebar';
 import ModalWindow from '../modal-window/modal-window';
 
 export default class App extends Component {
+    startId = 4;
     
     state = {
         listData: [
-            { text: 'Create Awesome React Up', done: false, important: false, id: 1, tag: 'Work' },
-            { text: 'Start Frontend Developer Career', done: false, important: false, id: 2, tag: 'Coding' },
-            { text: 'Drink Green Tea', done: false, important: false, id: 3, tag: 'Friends' },
-            { text: 'Run 10 km', done: false, important: false, id: 4, tag: 'Sport' }
-        ]
+            this.createListItem('Create Awesome React Up', 1, 'Coding'),
+            this.createListItem('Start Frontend Developer Career', 2, 'Work'),
+            this.createListItem('Drink Green Tea', 3, 'Friends'),
+            this.createListItem('Run 10 km', 4, 'Sport')
+        ],
+        searchTerm: ''
+    };
+        
+    createListItem(text, id, tag, done = false, important = false) {
+        const newItem = {
+            text,
+            id,
+            tag,
+            done,
+            important
+        };
+        return newItem;
+    }
+    
+    addListItem = (text, tag) => {
+        const newListItem = this.createListItem(text, ++this.startId, tag);
+        this.setState(( { listData } ) => {
+            const newStateArray = [...listData, newListItem];
+            return {
+                listData: newStateArray
+            }
+        })
     };
     
     itemButtonToggleHandler = (array, toggledProp, id) => {
@@ -60,28 +83,45 @@ export default class App extends Component {
         });
     };
     
+    setSearchTerm = (text) => {
+        this.setState({
+            searchTerm: text
+        });
+    };
+    
+    getSearchedItems = (itemsArray, searchTerm) => {
+        let visibleArray = itemsArray.filter(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()));
+        if (searchTerm.length === 0) {
+            visibleArray = [...itemsArray];
+        }
+        return visibleArray;
+    };
+    
     render() {
-        const { listData } = this.state;
+        const { listData, searchTerm } = this.state;
+        const visibleItems = this.getSearchedItems(listData, searchTerm);
         
         return (
             <div className="page">
                 <AppHeader />
                 <div className="page__container">
                     <div className="page__search-panel">
-                        <SearchPanel />
+                        <SearchPanel
+                            setSearchTerm={ this.setSearchTerm }/>
                     </div>
                     <div className="page__sidebar">
                         <AppSidebar />
                     </div>
                     <main className="page__main">
                         <TodoList
-                        todoItems={ listData }
-                        onCheckboxToggle={ this.onCheckboxToggle }
-                        onStarToggle={ this.onStarToggle }
-                        onItemDelete={ this.onItemDelete }/>
+                            todoItems={ visibleItems }
+                            onCheckboxToggle={ this.onCheckboxToggle }
+                            onStarToggle={ this.onStarToggle }
+                            onItemDelete={ this.onItemDelete }/>
                     </main>
                 </div>
-                <ModalWindow />
+                <ModalWindow
+                    addListItem={ this.addListItem }/>
             </div>
         );
     };

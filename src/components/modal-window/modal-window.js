@@ -1,13 +1,15 @@
 import React from 'react';
 import './modal-window.css'
 
+import NewItemForm from '../new-item-form/new-item-form';
+
 function toggleModal() {
     const modalWindow = document.querySelector('.modal-window');
     const openButtons = document.querySelectorAll('[data-modal="open"]');
     modalWindow.classList.toggle('open');
 }
 
-const ModalWindow = () => {
+const ModalWindow = ({ addListItem }) => {
     return (
         <div className="modal-window">
             <div className="modal-window__window">
@@ -29,9 +31,9 @@ const ModalWindow = () => {
                             onClick={ toggleModal }>
                     </button>
                     
-                    <div className="case-form__button-wrapper">
-                        <button type="button">Create</button>
-                    </div>
+                    <NewItemForm
+                        addListItem={ addListItem }
+                        closeModal= { toggleModal }/>
                 </div>
             </div>
         </div>

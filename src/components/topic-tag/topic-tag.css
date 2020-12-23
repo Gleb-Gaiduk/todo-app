@@ -25,3 +25,11 @@
 .topic-tag--bg--purple {
     background-color: #AA68CC;
 }
+
+.topic-tag--bg--dark-green {
+    background-color: #1f851c;
+}
+
+.topic-tag--bg--default {
+    background-color: rgb(211, 209, 80);
+}
