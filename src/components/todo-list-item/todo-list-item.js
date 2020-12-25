@@ -9,10 +9,15 @@ import DeleteButton from '../delete-button/delete-button';
 export default class TodoListItem extends Component {
     
     render() {
-        const { itemData, onCheckboxToggle, onStarToggle, onItemDelete } = this.props;
+        const { itemData, tagsData, onCheckboxToggle, onStarToggle, onItemDelete } = this.props;
+        const isDone = itemData.done;
+        const isImportant = itemData.important;
+        const isRemoved = itemData.removed;
+        
         let itemClass = 'list-item';
-        if (itemData.done) itemClass += ' done';
-        if (itemData.important) itemClass += ' stared';
+        if (isDone) itemClass += ' done';
+        if (isImportant) itemClass += ' stared';
+        if (isRemoved) itemClass += ' removed';
         
         return (
             <span className={ itemClass }>
@@ -34,6 +39,7 @@ export default class TodoListItem extends Component {
                <div className="list-item__right-block-wrapper">
                    <div className="list-item__topic-tag">
                        <TopicTag
+                       tagsData= { tagsData }
                        itemTag={ itemData.tag } />
                    </div>
                    <div className="list-item__delete-button">

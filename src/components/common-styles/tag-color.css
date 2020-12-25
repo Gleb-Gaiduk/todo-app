@@ -1,0 +1,27 @@
+.background--green {
+    background-color: #28c76f;
+}
+
+.background--red {
+    background-color: #ea5455;
+}
+
+.background--blue {
+    background-color: #33b5e5;
+}
+
+.background--orange {
+    background-color: #ff9f43;
+}
+
+.background--purple {
+    background-color: #AA68CC;
+}
+
+.background--dark-green {
+    background-color: #1f851c;
+}
+
+.background--default {
+    background-color: rgb(211, 209, 80);
+}

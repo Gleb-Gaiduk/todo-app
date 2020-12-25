@@ -8,16 +8,28 @@ import AppSidebar from '../app-sidebar/app-sidebar';
 import ModalWindow from '../modal-window/modal-window';
 
 export default class App extends Component {
-    startId = 4;
+    startId = 15;
     
     state = {
         listData: [
             this.createListItem('Create Awesome React Up', 1, 'Coding'),
             this.createListItem('Start Frontend Developer Career', 2, 'Work'),
-            this.createListItem('Drink Green Tea', 3, 'Friends'),
-            this.createListItem('Run 10 km', 4, 'Sport')
+            this.createListItem('Buy Presents', 3, 'Friends'),
+            this.createListItem('Run 10 km', 4, 'Sport'),
+            this.createListItem('Finish the React Learning Program', 5, 'Coding'),
+            this.createListItem('Make plans for 2021', 6, 'Work')
         ],
-        searchTerm: ''
+        tagsData: [
+            { tag: 'All', color: '', id: 1 },
+            { tag: 'Coding', color: 'purple', id: 2 },
+            { tag: 'Work', color: 'red', id: 3 },
+            { tag: 'Friends', color: 'blue', id: 4 },
+            { tag: 'Sport', color: 'green', id: 5 },
+            { tag: 'Social', color: 'orange', id: 6 }
+        ],
+        searchTerm: '',
+        filterCompleteValue: 'all',
+        filterTagValue: 'All'
     };
         
     createListItem(text, id, tag, done = false, important = false) {
@@ -29,7 +41,7 @@ export default class App extends Component {
             important
         };
         return newItem;
-    }
+    };
     
     addListItem = (text, tag) => {
         const newListItem = this.createListItem(text, ++this.startId, tag);
@@ -38,19 +50,19 @@ export default class App extends Component {
             return {
                 listData: newStateArray
             }
-        })
+        });
     };
     
     itemButtonToggleHandler = (array, toggledProp, id) => {
         const updatedElemIndex = array.findIndex(item => item.id === id);
-            const currentStateElem = array[updatedElemIndex];
-            const newStateElem = { ...currentStateElem, [toggledProp]: !currentStateElem[toggledProp] };
-            const newStateArray = [
-                ...array.slice(0, updatedElemIndex),
-                newStateElem,
-                ...array.slice(updatedElemIndex + 1)
-            ];
-            return newStateArray;
+        const currentStateElem = array[updatedElemIndex];
+        const newStateElem = { ...currentStateElem, [toggledProp]: !currentStateElem[toggledProp] };
+        const newStateArray = [
+            ...array.slice(0, updatedElemIndex),
+            newStateElem,
+            ...array.slice(updatedElemIndex + 1)
+        ];
+        return newStateArray;
     };
     
     onCheckboxToggle = (id) => {
@@ -72,8 +84,12 @@ export default class App extends Component {
     onItemDelete = (id) => {
         this.setState(({ listData }) => {
             const removedItemIndex = listData.findIndex(item => item.id === id);
+            const removedElement = listData[removedItemIndex];
+            removedElement.removed = true;
+            
             const newStateArray = [
                 ...listData.slice(0, removedItemIndex),
+                removedElement,
                 ...listData.slice(removedItemIndex + 1)
             ]
             
@@ -89,17 +105,62 @@ export default class App extends Component {
         });
     };
     
+    setFilterCompleteValue = (filterCompleteValue) => {
+        this.setState({ filterCompleteValue });
+    };
+    
+    setFilterTagValue = (filterTagValue) => {
+        this.setState({ filterTagValue })
+    };
+    
     getSearchedItems = (itemsArray, searchTerm) => {
         let visibleArray = itemsArray.filter(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()));
+        
         if (searchTerm.length === 0) {
             visibleArray = [...itemsArray];
         }
+        
         return visibleArray;
     };
     
+    getFilteredItems = (itemsArray, completeValue, tagValue) => {
+        let filteredArray = itemsArray.filter(item => item[completeValue]);
+        
+        if (completeValue === 'all') {
+            filteredArray = [...itemsArray];
+        }
+        
+        if (completeValue === 'deleted') {
+            filteredArray = [...itemsArray].filter(item => item.removed);
+        }
+        
+        if (tagValue === 'Friends') {
+            filteredArray = [...itemsArray].filter(item => item.tag === 'Friends');
+        }
+        
+        if (tagValue === 'Sport') {
+            filteredArray = [...itemsArray].filter(item => item.tag === 'Sport');
+        }
+        
+        if (tagValue === 'Work') {
+            filteredArray = [...itemsArray].filter(item => item.tag === 'Work');
+        }
+        
+        if (tagValue === 'Coding') {
+            filteredArray = [...itemsArray].filter(item => item.tag === 'Coding');
+        }
+        
+        return filteredArray;
+    };
+    
     render() {
-        const { listData, searchTerm } = this.state;
-        const visibleItems = this.getSearchedItems(listData, searchTerm);
+        const { listData, tagsData, searchTerm, filterCompleteValue, filterTagValue } = this.state;
+        
+        const searchedItems = this.getSearchedItems(listData, searchTerm);
+        const visibleItems = this.getFilteredItems(searchedItems, filterCompleteValue, filterTagValue);
+        
+        const doneNumber = listData.filter(item => item.done).length;
+        const totalNumber = listData.length;
         
         return (
             <div className="page">
@@ -107,14 +168,20 @@ export default class App extends Component {
                 <div className="page__container">
                     <div className="page__search-panel">
                         <SearchPanel
-                            setSearchTerm={ this.setSearchTerm }/>
+                            setSearchTerm={ this.setSearchTerm }
+                            doneNumber={ doneNumber }
+                            totalNumber={ totalNumber }
+                            setFilterCompleteValue={ this.setFilterCompleteValue }/>
                     </div>
                     <div className="page__sidebar">
-                        <AppSidebar />
+                        <AppSidebar
+                            tagsData={ tagsData }
+                            setFilterTagValue={ this.setFilterTagValue }/>
                     </div>
                     <main className="page__main">
                         <TodoList
                             todoItems={ visibleItems }
+                            tagsData={ tagsData }
                             onCheckboxToggle={ this.onCheckboxToggle }
                             onStarToggle={ this.onStarToggle }
                             onItemDelete={ this.onItemDelete }/>

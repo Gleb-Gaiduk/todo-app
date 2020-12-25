@@ -48,8 +48,7 @@
 }
 
 .search-panel__input-group input {
-    border-radius: 8px 0 0 8px;
-    border-right-color: #afb8bd;
+    border-radius: 8px;
 }
 
 .search-panel__search-button {

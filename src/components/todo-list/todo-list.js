@@ -3,11 +3,12 @@ import './todo-list.css';
 
 import TodoListItem from '../todo-list-item/todo-list-item';
 
-const TodoList = ( { todoItems, onCheckboxToggle, onStarToggle, onItemDelete } ) => {
+const TodoList = ( { todoItems, tagsData, onCheckboxToggle, onStarToggle, onItemDelete } ) => {
     const listElements = todoItems.map(item => {
         return (
             <li key={ item.id }>
                 <TodoListItem
+                tagsData={ tagsData }
                 itemData={ item }
                 onCheckboxToggle={ () => onCheckboxToggle(item.id) }
                 onStarToggle={ () => onStarToggle(item.id) }

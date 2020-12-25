@@ -6,18 +6,15 @@ import TextInput from '../text-input/text-input';
 import SearchIcon from './search-icon.svg';
 
 export default class SearchPanel extends Component {
-    state = {
-        searchTerm: ''
-    };
-    
+
     onSearchChange = (event) => {
-        this.setState({
-            searchTerm: event.target.value
-        });
-        this.props.setSearchTerm(this.state.searchTerm);
+        const searchTerm = event.target.value;
+        this.props.setSearchTerm(searchTerm);
     };
     
     render () {
+        const { doneNumber, totalNumber, setFilterCompleteValue } = this.props;
+        
         return (
             <div className="search-panel">
                 <button className="search-panel__menu-button" type="button">
@@ -26,7 +23,8 @@ export default class SearchPanel extends Component {
                 
                 <form className="search-panel__form" action="" method="get">
                     <div className="search-panel__select">
-                        <FilterSelect />
+                        <FilterSelect
+                            setFilterCompleteValue={ setFilterCompleteValue }/>
                     </div>
                     <div className="search-panel__flex-wrapper">
                         <div className="search-panel__input-group">
@@ -35,10 +33,9 @@ export default class SearchPanel extends Component {
                                 type="text"
                                 placeholder={ "Task search" }
                                 onChange = { this.onSearchChange }/>
-                            <button className="search-panel__search-button" type="submit"></button>
                         </div>
                         <span className="search-panel__statistics">
-                            2 Tasks Done Out of 10
+                            { doneNumber } Tasks Done Out of { totalNumber }
                         </span>
                     </div>
                 </form>
