@@ -9,7 +9,7 @@ function toggleModal() {
     modalWindow.classList.toggle('open');
 }
 
-const ModalWindow = ({ addListItem }) => {
+const ModalWindow = ({ addListItem, addTagItem }) => {
     return (
         <div className="modal-window">
             <div className="modal-window__window">
@@ -33,6 +33,7 @@ const ModalWindow = ({ addListItem }) => {
                     
                     <NewItemForm
                         addListItem={ addListItem }
+                        addTagItem={ addTagItem }
                         closeModal= { toggleModal }/>
                 </div>
             </div>

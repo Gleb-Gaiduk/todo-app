@@ -3,7 +3,6 @@
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
     height: 100%;
     border-radius: 8px;
-    
 }
 
 .sidebar__button-wrapper {
@@ -29,5 +28,5 @@
 .sidebar__button:hover,
 .sidebar__button:focus,
 .sidebar__button:active {
-    background-color: #9d60bb;
+    background-color: #9159ac;
 }

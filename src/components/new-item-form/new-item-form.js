@@ -24,6 +24,7 @@ export default class NewItemForm extends Component {
     onFormSubmit = (event) => {
         event.preventDefault();
         this.props.addListItem(this.state.taskLabel, this.state.tagLabel);
+        this.props.addTagItem(this.state.tagLabel);
         this.props.closeModal();
         this.clearInputs();
     }

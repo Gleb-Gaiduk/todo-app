@@ -20,12 +20,12 @@ export default class App extends Component {
             this.createListItem('Make plans for 2021', 6, 'Work')
         ],
         tagsData: [
-            { tag: 'All', color: '', id: 1 },
-            { tag: 'Coding', color: 'purple', id: 2 },
-            { tag: 'Work', color: 'red', id: 3 },
-            { tag: 'Friends', color: 'blue', id: 4 },
-            { tag: 'Sport', color: 'green', id: 5 },
-            { tag: 'Social', color: 'orange', id: 6 }
+            this.createTagItem('All', 1),
+            this.createTagItem('Coding', 2, 'purple'),
+            this.createTagItem('Work', 3, 'red'),
+            this.createTagItem('Friends', 4, 'blue'),
+            this.createTagItem('Sport', 5, 'green'),
+            this.createTagItem('Social', 6, 'orange')
         ],
         searchTerm: '',
         filterCompleteValue: 'all',
@@ -43,6 +43,15 @@ export default class App extends Component {
         return newItem;
     };
     
+    createTagItem(tag, id, color = 'default') {
+        const newTag = {
+            tag,
+            id,
+            color
+        };
+        return newTag;
+    };
+    
     addListItem = (text, tag) => {
         const newListItem = this.createListItem(text, ++this.startId, tag);
         this.setState(( { listData } ) => {
@@ -51,6 +60,25 @@ export default class App extends Component {
                 listData: newStateArray
             }
         });
+    };
+    
+    isExistingTag(text) {
+        const tagIndex = this.state.tagsData.findIndex(item => item.tag.toLowerCase() === text.toLowerCase());
+        if (tagIndex > -1) {
+            return true;
+        } else return false
+    }
+    
+    addTagItem = (text) => {
+        if (!this.isExistingTag(text)) {
+            const newTagItem = this.createTagItem(text, ++this.startId);
+            this.setState(({ tagsData }) => {
+                const newStateArray = [...tagsData, newTagItem];
+                return {
+                    tagsData: newStateArray
+                };
+            });
+        }
     };
     
     itemButtonToggleHandler = (array, toggledProp, id) => {
@@ -123,31 +151,25 @@ export default class App extends Component {
         return visibleArray;
     };
     
-    getFilteredItems = (itemsArray, completeValue, tagValue) => {
-        let filteredArray = itemsArray.filter(item => item[completeValue]);
+    getFilteredByStatus(itemsArray, filterValue) {
+        let filteredArray = itemsArray.filter(item => item[filterValue]);
         
-        if (completeValue === 'all') {
+        if (filterValue === 'all') {
             filteredArray = [...itemsArray];
         }
         
-        if (completeValue === 'deleted') {
+        if (filterValue === 'deleted') {
             filteredArray = [...itemsArray].filter(item => item.removed);
         }
         
-        if (tagValue === 'Friends') {
-            filteredArray = [...itemsArray].filter(item => item.tag === 'Friends');
-        }
+        return filteredArray;
+    }
+    
+    getFilteredByTag = (itemsArray, tagValue) => {
+        let filteredArray = [...itemsArray].filter(item => item.tag.toLowerCase() === tagValue.toLowerCase());
         
-        if (tagValue === 'Sport') {
-            filteredArray = [...itemsArray].filter(item => item.tag === 'Sport');
-        }
-        
-        if (tagValue === 'Work') {
-            filteredArray = [...itemsArray].filter(item => item.tag === 'Work');
-        }
-        
-        if (tagValue === 'Coding') {
-            filteredArray = [...itemsArray].filter(item => item.tag === 'Coding');
+        if (tagValue === 'All') {
+            filteredArray = [...itemsArray];
         }
         
         return filteredArray;
@@ -157,7 +179,10 @@ export default class App extends Component {
         const { listData, tagsData, searchTerm, filterCompleteValue, filterTagValue } = this.state;
         
         const searchedItems = this.getSearchedItems(listData, searchTerm);
-        const visibleItems = this.getFilteredItems(searchedItems, filterCompleteValue, filterTagValue);
+        const filteredItemsByStatus = this.getFilteredByStatus(searchedItems, filterCompleteValue);
+        const filteredByTag = this.getFilteredByTag(filteredItemsByStatus, filterTagValue)
+        
+        const visibleItems = filteredByTag;
         
         const doneNumber = listData.filter(item => item.done).length;
         const totalNumber = listData.length;
@@ -188,7 +213,8 @@ export default class App extends Component {
                     </main>
                 </div>
                 <ModalWindow
-                    addListItem={ this.addListItem }/>
+                    addListItem={ this.addListItem }
+                    addTagItem={ this.addTagItem }/>
             </div>
         );
     };
