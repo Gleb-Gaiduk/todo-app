@@ -6,6 +6,7 @@ import SearchPanel from '../search-panel/search-panel';
 import TodoList from '../todo-list/todo-list';
 import AppSidebar from '../app-sidebar/app-sidebar';
 import ModalWindow from '../modal-window/modal-window';
+import Overlay from '../overlay/overlay';
 
 export default class App extends Component {
     startId = 15;
@@ -19,6 +20,7 @@ export default class App extends Component {
             this.createListItem('Finish the React Learning Program', 5, 'Coding'),
             this.createListItem('Make plans for 2021', 6, 'Work')
         ],
+        
         tagsData: [
             this.createTagItem('All', 1),
             this.createTagItem('Coding', 2, 'purple'),
@@ -27,9 +29,12 @@ export default class App extends Component {
             this.createTagItem('Sport', 5, 'green'),
             this.createTagItem('Social', 6, 'orange')
         ],
+        
         searchTerm: '',
         filterCompleteValue: 'all',
-        filterTagValue: 'All'
+        filterTagValue: 'All',
+        isOpenedSidebar: false,
+        isHiddenOverlay: true
     };
         
     createListItem(text, id, tag, done = false, important = false) {
@@ -127,6 +132,14 @@ export default class App extends Component {
         });
     };
     
+    toggleStateFlag = (flag) => {
+        this.setState((state) => {
+            return {
+                [flag]: !state[flag]
+            }
+        })
+    };
+   
     setSearchTerm = (text) => {
         this.setState({
             searchTerm: text
@@ -163,7 +176,7 @@ export default class App extends Component {
         }
         
         return filteredArray;
-    }
+    };
     
     getFilteredByTag = (itemsArray, tagValue) => {
         let filteredArray = [...itemsArray].filter(item => item.tag.toLowerCase() === tagValue.toLowerCase());
@@ -176,7 +189,13 @@ export default class App extends Component {
     };
     
     render() {
-        const { listData, tagsData, searchTerm, filterCompleteValue, filterTagValue } = this.state;
+        const { listData,
+                tagsData, 
+                searchTerm, 
+                filterCompleteValue, 
+                filterTagValue, 
+                isOpenedSidebar,
+                isHiddenOverlay } = this.state;
         
         const searchedItems = this.getSearchedItems(listData, searchTerm);
         const filteredItemsByStatus = this.getFilteredByStatus(searchedItems, filterCompleteValue);
@@ -191,17 +210,27 @@ export default class App extends Component {
             <div className="page">
                 <AppHeader />
                 <div className="page__container">
+                    <Overlay isHidden={ isHiddenOverlay }
+                             onOverlayClick={ () => {
+                                this.toggleStateFlag('isOpenedSidebar');
+                                this.toggleStateFlag('isHiddenOverlay');
+                             }} />
                     <div className="page__search-panel">
                         <SearchPanel
                             setSearchTerm={ this.setSearchTerm }
                             doneNumber={ doneNumber }
                             totalNumber={ totalNumber }
-                            setFilterCompleteValue={ this.setFilterCompleteValue }/>
+                            setFilterCompleteValue={ this.setFilterCompleteValue }
+                            onMenuClick={ () => {
+                                this.toggleStateFlag('isOpenedSidebar');
+                                this.toggleStateFlag('isHiddenOverlay');
+                            }} />
                     </div>
                     <div className="page__sidebar">
                         <AppSidebar
                             tagsData={ tagsData }
-                            setFilterTagValue={ this.setFilterTagValue }/>
+                            setFilterTagValue={ this.setFilterTagValue }
+                            isOpened={ isOpenedSidebar } />
                     </div>
                     <main className="page__main">
                         <TodoList
@@ -209,12 +238,12 @@ export default class App extends Component {
                             tagsData={ tagsData }
                             onCheckboxToggle={ this.onCheckboxToggle }
                             onStarToggle={ this.onStarToggle }
-                            onItemDelete={ this.onItemDelete }/>
+                            onItemDelete={ this.onItemDelete } />
                     </main>
                 </div>
                 <ModalWindow
                     addListItem={ this.addListItem }
-                    addTagItem={ this.addTagItem }/>
+                    addTagItem={ this.addTagItem } />
             </div>
         );
     };

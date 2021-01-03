@@ -8,11 +8,11 @@ const TodoList = ( { todoItems, tagsData, onCheckboxToggle, onStarToggle, onItem
         return (
             <li key={ item.id }>
                 <TodoListItem
-                tagsData={ tagsData }
-                itemData={ item }
-                onCheckboxToggle={ () => onCheckboxToggle(item.id) }
-                onStarToggle={ () => onStarToggle(item.id) }
-                onItemDelete={ () => onItemDelete(item.id) }/>
+                    tagsData={ tagsData }
+                    itemData={ item }
+                    onCheckboxToggle={ () => onCheckboxToggle(item.id) }
+                    onStarToggle={ () => onStarToggle(item.id) }
+                    onItemDelete={ () => onItemDelete(item.id) } />
             </li>
         )
     });

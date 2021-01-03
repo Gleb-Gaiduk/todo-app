@@ -8,6 +8,18 @@ import DeleteButton from '../delete-button/delete-button';
 
 export default class TodoListItem extends Component {
     
+    state = {
+        isExtendedText: false
+    };
+    
+    extendItemText = () => {
+        this.setState(({ isExtendedText }) => {
+            return {
+                isExtendedText: !isExtendedText
+            };
+        });
+    };
+    
     render() {
         const { itemData, tagsData, onCheckboxToggle, onStarToggle, onItemDelete } = this.props;
         const isDone = itemData.done;
@@ -19,32 +31,36 @@ export default class TodoListItem extends Component {
         if (isImportant) itemClass += ' stared';
         if (isRemoved) itemClass += ' removed';
         
+        let itemTextClass= 'list-item__text';
+        if (this.state.isExtendedText) itemTextClass += ' extended';
+        
         return (
             <span className={ itemClass }>
                <div className="list-item__button-group">
                    <div className="list-item__checkbox">
                         <Checkbox
-                        itemId={ itemData.id }
-                        onCheckboxToggle={ onCheckboxToggle } />
+                            itemId={ itemData.id }
+                            onCheckboxToggle={ onCheckboxToggle } />
                    </div>
                    <div className="list-item__checkstar">
                         <CheckStar
-                        onStarToggle={ onStarToggle }
-                        stared={ itemData.important } />
+                            onStarToggle={ onStarToggle }
+                            stared={ itemData.important } />
                    </div>
                </div>
-               <p className="list-item__text">
+               <p className={ itemTextClass }
+                  onClick={ this.extendItemText }>
                    { itemData.text }
                </p>
                <div className="list-item__right-block-wrapper">
                    <div className="list-item__topic-tag">
                        <TopicTag
-                       tagsData= { tagsData }
-                       itemTag={ itemData.tag } />
+                            tagsData= { tagsData }
+                            itemTag={ itemData.tag } />
                    </div>
                    <div className="list-item__delete-button">
                        <DeleteButton
-                        onItemDelete = { onItemDelete }/>
+                            onItemDelete = { onItemDelete } />
                    </div>
                </div>
             </span>

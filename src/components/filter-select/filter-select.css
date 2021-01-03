@@ -22,3 +22,11 @@
     color: #212529;
     background-color: #fff;
 }
+
+@media screen and (max-width: 660px) {
+    
+    .select-input {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}

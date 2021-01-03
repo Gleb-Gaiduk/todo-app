@@ -5,6 +5,10 @@
     border-radius: 8px;
 }
 
+.sidebar.open {
+    left: 0;
+}
+
 .sidebar__button-wrapper {
     padding: 24px;
     margin-bottom: 20px;
@@ -29,4 +33,16 @@
 .sidebar__button:focus,
 .sidebar__button:active {
     background-color: #9159ac;
+}
+
+@media screen and (max-width: 850px) {
+    .sidebar {
+        position: absolute;
+        top: 80px;
+        bottom: 0;
+        left: -250px;
+        width: 220px;
+        z-index: 20;
+        height: 90vh;
+    }
 }

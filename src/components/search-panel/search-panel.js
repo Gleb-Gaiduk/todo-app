@@ -13,18 +13,21 @@ export default class SearchPanel extends Component {
     };
     
     render () {
-        const { doneNumber, totalNumber, setFilterCompleteValue } = this.props;
+        const { doneNumber, totalNumber, setFilterCompleteValue, onMenuClick } = this.props;
         
         return (
             <div className="search-panel">
-                <button className="search-panel__menu-button" type="button">
-                    <svg className="search-panel__menu-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <button 
+                    className="search-panel__menu-button"
+                    type="button"
+                    onClick={ onMenuClick }>
+                        <svg className="search-panel__menu-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
                 
                 <form className="search-panel__form" action="" method="get">
                     <div className="search-panel__select">
                         <FilterSelect
-                            setFilterCompleteValue={ setFilterCompleteValue }/>
+                            setFilterCompleteValue={ setFilterCompleteValue } />
                     </div>
                     <div className="search-panel__flex-wrapper">
                         <div className="search-panel__input-group">
@@ -32,7 +35,7 @@ export default class SearchPanel extends Component {
                                 className="text-input"
                                 type="text"
                                 placeholder={ "Task search" }
-                                onChange = { this.onSearchChange }/>
+                                onChange = { this.onSearchChange } />
                         </div>
                         <span className="search-panel__statistics">
                             { doneNumber } Tasks Done Out of { totalNumber }

@@ -5,7 +5,6 @@ import NewItemForm from '../new-item-form/new-item-form';
 
 function toggleModal() {
     const modalWindow = document.querySelector('.modal-window');
-    const openButtons = document.querySelectorAll('[data-modal="open"]');
     modalWindow.classList.toggle('open');
 }
 
@@ -15,7 +14,6 @@ const ModalWindow = ({ addListItem, addTagItem }) => {
             <div className="modal-window__window">
                 <div className="modal-window__back-button-wrapper">
                     <button className="modal-window__back-button"
-                            data-modal="close" 
                             type="button"
                             onClick={ toggleModal }>
                         Back
@@ -27,14 +25,13 @@ const ModalWindow = ({ addListItem, addTagItem }) => {
                 <div className="modal-window__container">
                     <button className="modal-window__close-button"
                             type="button"
-                            data-modal="close"
                             onClick={ toggleModal }>
                     </button>
                     
                     <NewItemForm
                         addListItem={ addListItem }
                         addTagItem={ addTagItem }
-                        closeModal= { toggleModal }/>
+                        closeModal= { toggleModal } />
                 </div>
             </div>
         </div>

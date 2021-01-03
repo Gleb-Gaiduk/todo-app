@@ -9,3 +9,10 @@
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
     overflow: auto;
 }
+
+@media screen and (max-width: 660px) {
+    
+    .todo-list {
+        border-radius: 0;
+    }
+}

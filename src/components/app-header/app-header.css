@@ -37,6 +37,11 @@
 .header__nav-link {}
 
 @media screen and (max-width: 660px) {
+    
+    .header {
+        height: 60px;
+    }
+    
     .header__text {
         display: none;
     }

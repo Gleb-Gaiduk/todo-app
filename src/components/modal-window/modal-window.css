@@ -96,7 +96,7 @@
     outline: none;
 }
 
-@media screen and (max-width: 667px) {
+@media screen and (max-width: 660px) {
     .modal-window {
         padding: 0;
     }
@@ -106,6 +106,7 @@
         width: 100%;
         border: none;
         min-height: 100%;
+        min-width: 0;
     }
     
     .modal-window__container {
@@ -122,5 +123,10 @@
     
     .modal-window__back-button-wrapper {
         display: flex;
+        border-radius: 0;
+    }
+    
+    .modal-window__header {
+        border-radius: 0;
     }
 }

@@ -65,3 +65,40 @@
 .search-panel__statistics {
     
 }
+
+@media screen and (max-width: 850px) {
+    .search-panel__menu-button {
+        display: block;
+    }
+    
+    .search-panel__statistics {
+        font-size: 14px;
+    }
+    
+}
+
+@media screen and (max-width: 660px) {
+    
+    .search-panel {
+        align-items: start;
+        padding: 20px 15px;
+        border-radius: 0;
+    }
+    
+    .search-panel__form {
+        flex-wrap: wrap;
+    }
+    
+    .search-panel__select {
+        order: 2;
+    }
+    
+    .search-panel__statistics {
+        display: none;
+    }
+    
+    .search-panel__input-group {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
