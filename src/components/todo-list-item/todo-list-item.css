@@ -38,17 +38,7 @@
     text-decoration: line-through;
 }
 
-.list-item__text.extended {
-    position: absolute;
-    left: 72px;
-    right: 0;
-    z-index: 5;
-    background-color: #73C2FB;
-    color: #fff;
-    font-weight: bold;
-    padding-left: 10px;
-    border-radius: 4px;
-}
+
 
 .list-item:hover {
     background-color:  rgba(0, 0, 0, 0.03);
@@ -98,6 +88,18 @@
     .list-item {
         padding: 15px;
         flex-wrap: wrap;
+    }
+    
+    .list-item__text.extended {
+        position: absolute;
+        left: 72px;
+        right: 0;
+        z-index: 5;
+        background-color: #73C2FB;
+        color: #fff;
+        font-weight: bold;
+        padding-left: 10px;
+        border-radius: 4px;
     }
     
     .list-item__text {
